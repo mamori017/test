@@ -1,1 +1,0 @@
-NslookupTarget.bat > TargetResults.txt

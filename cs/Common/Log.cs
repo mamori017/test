@@ -11,6 +11,7 @@ namespace Common
         /// </summary>
         public static void ExceptionOutput(Exception ex, String path)
         {
+
             Encoding objEncoding = new UTF8Encoding(false);
             StreamWriter objWriter = new StreamWriter(path, true, objEncoding);
 

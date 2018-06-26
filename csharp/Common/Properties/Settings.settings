@@ -17,7 +17,7 @@
     <Setting Name="SqlServerPassword" Type="System.String" Scope="Application">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="設定" Type="System.String" Scope="Application">
+    <Setting Name="NotifyIconPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

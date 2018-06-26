@@ -1,14 +1,14 @@
 version: 0.0.{build}
 skip_tags: true
 build:
-  project: cs/Common.sln
+  project: cs/nslookup2csv.sln
   verbosity: minimal
 image: Visual Studio 2015
 configuration: Debug
 before_build:
-  nuget restore cs/Common.sln
+  nuget restore cs/nslookup2csv.sln
 after_test: 
-    - OpenCover.Console.exe -register:user -target:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\MSTest.exe" -targetargs:"/noresults /noisolation /testcontainer:""UnitTest.dll" -targetdir:".\cs\UnitTest\bin\Debug" -excludebyattribute:*.ExcludeFromCodeCoverage* -hideskipped:All -output:.\coverage.xml -filter:"+[*]*" -excludedirs:".\cs\Common\Properties"
+    - OpenCover.Console.exe -register:user -target:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\MSTest.exe" -targetargs:"/noresults /noisolation /testcontainer:""UnitTest.dll" -targetdir:".\cs\UnitTest\bin\Debug" -excludebyattribute:*.ExcludeFromCodeCoverage* -hideskipped:All -output:.\coverage.xml -filter:"+[nslookup2csv*]* "
     - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
     - pip install codecov
     - codecov -f "coverage.xml"	

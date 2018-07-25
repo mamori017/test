@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTests", "CommonTests\CommonTests.csproj", "{21ABD77B-3D18-444F-B32E-011F960F192D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xUnitTest", "xUnitTest\xUnitTest.csproj", "{834F9456-5836-4435-9CB3-3BAF4BF7E216}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,14 +31,6 @@ Global
 		{21ABD77B-3D18-444F-B32E-011F960F192D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{21ABD77B-3D18-444F-B32E-011F960F192D}.Release|x86.ActiveCfg = Release|Any CPU
 		{21ABD77B-3D18-444F-B32E-011F960F192D}.Release|x86.Build.0 = Release|Any CPU
-		{834F9456-5836-4435-9CB3-3BAF4BF7E216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{834F9456-5836-4435-9CB3-3BAF4BF7E216}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{834F9456-5836-4435-9CB3-3BAF4BF7E216}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{834F9456-5836-4435-9CB3-3BAF4BF7E216}.Debug|x86.Build.0 = Debug|Any CPU
-		{834F9456-5836-4435-9CB3-3BAF4BF7E216}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{834F9456-5836-4435-9CB3-3BAF4BF7E216}.Release|Any CPU.Build.0 = Release|Any CPU
-		{834F9456-5836-4435-9CB3-3BAF4BF7E216}.Release|x86.ActiveCfg = Release|Any CPU
-		{834F9456-5836-4435-9CB3-3BAF4BF7E216}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

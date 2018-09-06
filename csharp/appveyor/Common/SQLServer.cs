@@ -44,7 +44,7 @@ namespace Common
         private String SqlConString()
         {
             String ret = "Data Source =" + ServerName +
-                         ";Database = master" +
+                         ";Initial Catalog=" + Catalog +
                          ";User ID=" + UserId +
                          ";Password=" + Password;
 

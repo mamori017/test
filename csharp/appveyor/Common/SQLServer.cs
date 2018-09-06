@@ -44,11 +44,10 @@ namespace Common
         private String SqlConString()
         {
             String ret = "Data Source =" + ServerName +
-                         ";Initial Catalog=" + Catalog +
+                         ";Database = master" +
                          ";User ID=" + UserId +
                          ";Password=" + Password;
 
-            ret = "(local)\\SQL2014; Database = master; User ID = sa; Password = Password12!";
             return ret;
         }
 

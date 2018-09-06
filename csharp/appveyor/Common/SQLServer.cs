@@ -48,7 +48,7 @@ namespace Common
                          ";User ID=" + UserId +
                          ";Password=" + Password;
 
-            ret = "(local)\\SQL2012SP1; Database = master; User ID = sa; Password = Password12!";
+            ret = "(local)\SQL2014; Database = master; User ID = sa; Password = Password12!";
             return ret;
         }
 

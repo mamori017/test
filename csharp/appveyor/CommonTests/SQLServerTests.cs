@@ -21,7 +21,7 @@ namespace Common.Tests
                 {
                     if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                     {
-                        if (address.ToString() == "223.255.255.255")
+                        if (address.ToString() == "127.0.0.1")
                         {
                             objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,
                                                   "",

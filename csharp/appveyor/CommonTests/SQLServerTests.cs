@@ -21,16 +21,26 @@ namespace Common.Tests
                 {
                     if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                     {
-                        String[] appVeyorEnv = SQLServerSettings.Default.AppveyorBuildEnv.Split(',');
-
-                        if (Array.IndexOf(appVeyorEnv, address) > 0)
+                        if (address.ToString() == "223.255.255.255")
                         {
                             objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,
                                                   "",
                                                   SQLServerSettings.Default.AppveyorSqlServerUser,
                                                   SQLServerSettings.Default.AppveyorSqlServerPw);
                             return objDB;
+
                         }
+
+                        //String[] appVeyorEnv = SQLServerSettings.Default.AppveyorBuildEnv.Split(',');
+
+                        //if (Array.IndexOf(appVeyorEnv, address) > 0)
+                        //{
+                        //    objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,
+                        //                          "",
+                        //                          SQLServerSettings.Default.AppveyorSqlServerUser,
+                        //                          SQLServerSettings.Default.AppveyorSqlServerPw);
+                        //    return objDB;
+                        //}
                     }
                 }
 

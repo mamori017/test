@@ -154,7 +154,9 @@ namespace Common.Tests
                 {
                     if (objDB.Connect())
                     {
-                        bool ret = objDB.CreateAndDropTable("CREATE DATABASE SampleDB");
+                        objDB.CreateAndDropTable("CREATE DATABASE SampleDB");
+                        bool ret = objDB.CreateAndDropTable("CREATE TABLE DATABASE.Test (id int NOT NULL PRIMARY KEY, col_1 nvarchar(10) NULL, col_2 nvarchar(10) NULL, col_3 nvarchar(10) NULL);");
+
                         Assert.AreEqual(true, ret);
                     }
                 }

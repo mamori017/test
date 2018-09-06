@@ -1,6 +1,7 @@
 ﻿using CommonTests.Properties;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Net;
 
 namespace Common.Tests
 {
@@ -10,9 +11,33 @@ namespace Common.Tests
         private SQLServer TestEnvJudge()
         {
             SQLServer objDB = null;
+
             try
             {
-                
+                //string hostname = Dns.GetHostName();
+
+                //IPAddress[] adrList = Dns.GetHostAddresses(hostname);
+                //foreach (IPAddress address in adrList)
+                //{
+                //    if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                //    {
+                //        String[] appVeyorEnv = Settings.Default.AppveyorBuildEnv.Split(',');
+
+                //        if (Array.IndexOf(appVeyorEnv, address) > 0)
+                //        {
+                //            objDB = new SQLServer(Settings.Default.AppveyorSqlServerName,
+                //                                  "",
+                //                                  Settings.Default.AppveyorSqlServerUser,
+                //                                  Settings.Default.AppveyorSqlServerPw);
+                //            return objDB;
+                //        }
+                //    }
+                //}
+
+                objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,
+                                      "",
+                                      SQLServerSettings.Default.AppveyorSqlServerUser,
+                                      SQLServerSettings.Default.AppveyorSqlServerPw);
                 return objDB;
             }
             catch (Exception ex)
@@ -28,11 +53,7 @@ namespace Common.Tests
             SQLServer objDB = null;
             try
             {
-                //objDB = TestEnvJudge();
-                objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,
-                                                      "",
-                                                      SQLServerSettings.Default.AppveyorSqlServerUser,
-                                                      SQLServerSettings.Default.AppveyorSqlServerPw);
+                objDB = TestEnvJudge();
                 if (objDB != null)
                 {
                     Assert.AreEqual(true, objDB.Connect());
@@ -43,8 +64,81 @@ namespace Common.Tests
                 objDB.Disconnect();
                 objDB = null;
             }
-
         }
 
+        [TestMethod()]
+        public void DisconnectTest()
+        {
+            SQLServer objDB = null;
+            try
+            {
+                objDB = TestEnvJudge();
+                if (objDB != null)
+                {
+                    if (objDB.Connect())
+                    {
+                        Assert.AreEqual(true, objDB.Disconnect());
+                    }
+                }
+            }
+            finally
+            {
+                objDB = null;
+            }
+        }
+
+        [TestMethod()]
+        public void BeginTransTest()
+        {
+            SQLServer objDB = null;
+            try
+            {
+                objDB = TestEnvJudge();
+                if (objDB != null)
+                {
+                    if (objDB.Connect())
+                    {
+                        Assert.AreEqual(true, objDB.BeginTrans());
+
+                        objDB.RollBack();
+                    }
+                }
+            }
+            finally
+            {
+                if (objDB.Connect())
+                {
+                    objDB.Disconnect();
+                }
+                objDB = null;
+            }
+        }
+
+        [TestMethod()]
+        public void RollBackTest()
+        {
+            SQLServer objDB = null;
+            try
+            {
+                objDB = TestEnvJudge();
+                if (objDB != null)
+                {
+                    if (objDB.Connect())
+                    {
+                        objDB.BeginTrans();
+
+                        Assert.AreEqual(true, objDB.RollBack());
+                    }
+                }
+            }
+            finally
+            {
+                if (objDB.Connect())
+                {
+                    objDB.Disconnect();
+                }
+                objDB = null;
+            }
+        }
     }
 }

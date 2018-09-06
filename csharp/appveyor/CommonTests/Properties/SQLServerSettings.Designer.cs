@@ -61,7 +61,7 @@ namespace CommonTests.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("(local)\\\\SQL2014")]
+        [global::System.Configuration.DefaultSettingValueAttribute("(local)\\SQL2014")]
         public string AppveyorSqlServerName {
             get {
                 return ((string)(this["AppveyorSqlServerName"]));

@@ -12,10 +12,7 @@ namespace Common.Tests
             SQLServer objDB = null;
             try
             {
-                objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,
-                                      "",
-                                      SQLServerSettings.Default.AppveyorSqlServerUser,
-                                      SQLServerSettings.Default.AppveyorSqlServerPw);
+                
                 return objDB;
             }
             catch (Exception ex)
@@ -31,7 +28,11 @@ namespace Common.Tests
             SQLServer objDB = null;
             try
             {
-                objDB = TestEnvJudge();
+                //objDB = TestEnvJudge();
+                objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,
+                                                      "",
+                                                      SQLServerSettings.Default.AppveyorSqlServerUser,
+                                                      SQLServerSettings.Default.AppveyorSqlServerPw);
                 if (objDB != null)
                 {
                     Assert.AreEqual(true, objDB.Connect());

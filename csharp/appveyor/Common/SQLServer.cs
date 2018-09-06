@@ -47,6 +47,8 @@ namespace Common
                          ";Initial Catalog=" + Catalog +
                          ";User ID=" + UserId +
                          ";Password=" + Password;
+
+            ret = "(local)\\SQL2012SP1; Database = master; User ID = sa; Password = Password12!";
             return ret;
         }
 

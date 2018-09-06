@@ -64,6 +64,7 @@ namespace Common.Tests
                 {
                     if (objDB.Connect())
                     {
+                        objDB.ChangeData("USE TestDB");
                         Assert.AreEqual(true, objDB.Disconnect());
                     }
                 }
@@ -85,6 +86,7 @@ namespace Common.Tests
                 {
                     if (objDB.Connect())
                     {
+                        objDB.ChangeData("USE TestDB");
                         Assert.AreEqual(true, objDB.BeginTrans());
 
                         objDB.RollBack();
@@ -112,6 +114,7 @@ namespace Common.Tests
                 {
                     if (objDB.Connect())
                     {
+                        objDB.ChangeData("USE TestDB");
                         objDB.BeginTrans();
 
                         Assert.AreEqual(true, objDB.RollBack());
@@ -136,18 +139,14 @@ namespace Common.Tests
             try
             {
                 objDB = TestEnvJudge();
+
                 if (objDB != null)
                 {
                     if (objDB.Connect())
                     {
-                        System.Data.DataTable dataTable = objDB.GetData("SELECT COUNT(*) AS CNT FROM SYS.DATABASES WHERE name Like '%TestDB%'");
+                        SetTestEnv(objDB);
 
-                        if(int.Parse(dataTable.Rows[0]["CNT"].ToString()) == 0)
-                        {
-                            objDB.CreateAndDrop("CREATE DATABASE TestDB;");
-                        }
-
-                        bool ret = objDB.CreateAndDrop("CREATE TABLE TestDB.Test (id int NOT NULL PRIMARY KEY, col_1 nvarchar(10) NULL);");
+                        bool ret = objDB.CreateAndDrop("CREATE TABLE Test (id int NOT NULL PRIMARY KEY, col_1 nvarchar(10) NULL);");
 
                         Assert.AreEqual(true, ret);
                     }
@@ -162,6 +161,13 @@ namespace Common.Tests
                 objDB = null;
             }
 
+        }
+
+        private void SetTestEnv(SQLServer objDB)
+        {
+            objDB.CreateAndDrop("DROP DATABASE TestDB;");
+            objDB.CreateAndDrop("CREATE DATABASE TestDB;");
+            objDB.ChangeData("USE TestDB");
         }
     }
 }

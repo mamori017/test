@@ -140,5 +140,35 @@ namespace Common.Tests
                 objDB = null;
             }
         }
+
+        [TestMethod()]
+        public void CreateAndDropTableTest()
+        {
+            SQLServer objDB = null;
+            Random random = new Random();
+
+            try
+            {
+                objDB = TestEnvJudge();
+                if (objDB != null)
+                {
+                    if (objDB.Connect())
+                    {
+                        bool ret = objDB.CreateAndDropTable("CREATE DATABASE SampleDB");
+                        Assert.AreEqual(true, ret);
+                    }
+                }
+            }
+            finally
+            {
+                if (objDB.Connect())
+                {
+                    objDB.Disconnect();
+                }
+                objDB = null;
+                random = null;
+            }
+
+        }
     }
 }

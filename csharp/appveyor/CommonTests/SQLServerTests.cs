@@ -14,30 +14,30 @@ namespace Common.Tests
 
             try
             {
-                //string hostname = Dns.GetHostName();
+                string hostname = Dns.GetHostName();
 
-                //IPAddress[] adrList = Dns.GetHostAddresses(hostname);
-                //foreach (IPAddress address in adrList)
-                //{
-                //    if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                //    {
-                //        String[] appVeyorEnv = Settings.Default.AppveyorBuildEnv.Split(',');
+                IPAddress[] adrList = Dns.GetHostAddresses(hostname);
+                foreach (IPAddress address in adrList)
+                {
+                    if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    {
+                        String[] appVeyorEnv = SQLServerSettings.Default.AppveyorBuildEnv.Split(',');
 
-                //        if (Array.IndexOf(appVeyorEnv, address) > 0)
-                //        {
-                //            objDB = new SQLServer(Settings.Default.AppveyorSqlServerName,
-                //                                  "",
-                //                                  Settings.Default.AppveyorSqlServerUser,
-                //                                  Settings.Default.AppveyorSqlServerPw);
-                //            return objDB;
-                //        }
-                //    }
-                //}
+                        if (Array.IndexOf(appVeyorEnv, address) > 0)
+                        {
+                            objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,
+                                                  "",
+                                                  SQLServerSettings.Default.AppveyorSqlServerUser,
+                                                  SQLServerSettings.Default.AppveyorSqlServerPw);
+                            return objDB;
+                        }
+                    }
+                }
 
-                objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,
+                objDB = new SQLServer(SQLServerSettings.Default.SqlServerName,
                                       "",
-                                      SQLServerSettings.Default.AppveyorSqlServerUser,
-                                      SQLServerSettings.Default.AppveyorSqlServerPw);
+                                      SQLServerSettings.Default.SqlServerUser,
+                                      SQLServerSettings.Default.SqlServerPw);
                 return objDB;
             }
             catch (Exception ex)
@@ -142,11 +142,10 @@ namespace Common.Tests
         }
 
         [TestMethod()]
-        public void CreateAndDropTableTest()
+        public void CreateAndDropTest()
         {
             SQLServer objDB = null;
-            Random random = new Random();
-
+            
             try
             {
                 objDB = TestEnvJudge();
@@ -154,9 +153,14 @@ namespace Common.Tests
                 {
                     if (objDB.Connect())
                     {
-                        bool ret = objDB.CreateAndDropTable("CREATE DATABASE SampleDB");
+                        System.Data.DataTable dataTable = objDB.GetData("SELECT COUNT(*) AS CNT FROM SYS.DATABASES WHERE name Like '%TestDB%'");
 
-                        //bool ret = objDB.CreateAndDropTable("CREATE TABLE SampleDB.Test (id int NOT NULL PRIMARY KEY, col_1 nvarchar(10) NULL);");
+                        if(int.Parse(dataTable.Rows[0]["CNT"].ToString()) == 0)
+                        {
+                            objDB.CreateAndDrop("CREATE DATABASE TestDB;");
+                        }
+
+                        bool ret = objDB.CreateAndDrop("CREATE TABLE TestDB.Test (id int NOT NULL PRIMARY KEY, col_1 nvarchar(10) NULL);");
 
                         Assert.AreEqual(true, ret);
                     }
@@ -169,7 +173,6 @@ namespace Common.Tests
                     objDB.Disconnect();
                 }
                 objDB = null;
-                random = null;
             }
 
         }

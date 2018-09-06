@@ -170,7 +170,7 @@ namespace Common
             }
         }
 
-        public bool CreateAndDropTable(String sql)
+        public bool CreateAndDrop(String sql)
         {
             try
             {

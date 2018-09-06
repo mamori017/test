@@ -97,8 +97,7 @@ namespace CommonTests.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("74.205.54.20,104.197.110.30,104.197.145.181,146.148.85.29,67.225.139.254,67.225.1" +
-            "38.82,67.225.139.144")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"104.197.110.30,104.197.145.181,67.225.138.82,67.225.139.18,67.225.139.144,67.225.139.196,67.225.139.220,67.225.139.254,67.227.235.192,67.227.235.194,67.225.251.77,67.225.251.78,67.225.251.79,67.225.251.92,67.225.251.95,67.225.251.96,67.225.251.97,67.225.251.98,72.52.250.157,72.52.251.119,138.91.141.243")]
         public string AppveyorBuildEnv {
             get {
                 return ((string)(this["AppveyorBuildEnv"]));

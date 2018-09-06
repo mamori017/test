@@ -14,40 +14,17 @@ namespace Common.Tests
 
             try
             {
-                string hostname = Dns.GetHostName();
-
-                IPAddress[] adrList = Dns.GetHostAddresses(hostname);
-                foreach (IPAddress address in adrList)
-                {
-                    if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                    {
-                        if (address.ToString() == "127.0.0.1")
-                        {
-                            objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,
-                                                  "",
-                                                  SQLServerSettings.Default.AppveyorSqlServerUser,
-                                                  SQLServerSettings.Default.AppveyorSqlServerPw);
-                            return objDB;
-
-                        }
-
-                        //String[] appVeyorEnv = SQLServerSettings.Default.AppveyorBuildEnv.Split(',');
-
-                        //if (Array.IndexOf(appVeyorEnv, address) > 0)
-                        //{
-                        //    objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,
-                        //                          "",
-                        //                          SQLServerSettings.Default.AppveyorSqlServerUser,
-                        //                          SQLServerSettings.Default.AppveyorSqlServerPw);
-                        //    return objDB;
-                        //}
-                    }
-                }
-
+#if DEBUG
                 objDB = new SQLServer(SQLServerSettings.Default.SqlServerName,
                                       "",
                                       SQLServerSettings.Default.SqlServerUser,
                                       SQLServerSettings.Default.SqlServerPw);
+#else
+                objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,
+                                      "",
+                                      SQLServerSettings.Default.AppveyorSqlServerUser,
+                                      SQLServerSettings.Default.AppveyorSqlServerPw);
+#endif
                 return objDB;
             }
             catch (Exception ex)

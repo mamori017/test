@@ -2,17 +2,15 @@ version: 0.0.{build}
 skip_tags: true
 services:
   - mssql2014
-hosts:
-  localhost: 223.255.255.255
 build:
   project: csharp/appveyor/Common.sln
   verbosity: minimal
 image: Visual Studio 2015
-configuration: Debug
+configuration: Release
 before_build:
   nuget restore csharp/appveyor/Common.sln
 after_test: 
-    - OpenCover.Console.exe -register:user -target:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\MSTest.exe" -targetargs:"/noresults /noisolation /testcontainer:""CommonTests.dll" -targetdir:".\csharp\appveyor\CommonTests\bin\Debug" -excludebyattribute:*.ExcludeFromCodeCoverage* -hideskipped:All -filter:"+[*]* -[CommonTests*]*" -excludebyfile:*\*Designer.cs -output:.\coverage.xml"
+    - OpenCover.Console.exe -register:user -target:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\MSTest.exe" -targetargs:"/noresults /noisolation /testcontainer:""CommonTests.dll" -targetdir:".\csharp\appveyor\CommonTests\bin\Release" -excludebyattribute:*.ExcludeFromCodeCoverage* -hideskipped:All -filter:"+[*]* -[CommonTests*]*" -excludebyfile:*\*Designer.cs -output:.\coverage.xml"
     - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
     - pip install codecov
     - codecov -f "coverage.xml"	

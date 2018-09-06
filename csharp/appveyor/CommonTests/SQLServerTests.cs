@@ -40,10 +40,10 @@ namespace Common.Tests
                 //    }
                 //}
 
-                objDB = new SQLServer(SQLServerSettings.Default.SqlServerName,
+                objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,
                                       "",
-                                      SQLServerSettings.Default.SqlServerUser,
-                                      SQLServerSettings.Default.SqlServerPw);
+                                      SQLServerSettings.Default.AppveyorSqlServerUser,
+                                      SQLServerSettings.Default.AppveyorSqlServerPw);
 
                 return objDB;
             }

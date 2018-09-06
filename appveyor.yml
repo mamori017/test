@@ -2,6 +2,8 @@ version: 0.0.{build}
 skip_tags: true
 services:
   - mssql2014
+hosts:
+  localhost: 223.255.255.255
 build:
   project: csharp/appveyor/Common.sln
   verbosity: minimal

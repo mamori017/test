@@ -10,29 +10,6 @@ namespace Common.Tests
     public class SQLServerTests
     {
         SQLServer objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName, "", SQLServerSettings.Default.AppveyorSqlServerUser, SQLServerSettings.Default.AppveyorSqlServerPw);
-
-        private void SetUseDB()
-        {
-            objDB.ChangeData("USE TestDB");
-        }
-
-        private void SetEnv()
-        {
-            objDB.CreateAndDrop("CREATE DATABASE TestDB;");
-        }
-        private void DropEnv()
-        {
-            objDB.CreateAndDrop("DROP DATABASE TestDB;");
-        }
-
-        [AssemblyInitialize]
-        public static void init(TestContext testContext)
-        {
-            SQLServer initDb = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName, "", SQLServerSettings.Default.AppveyorSqlServerUser, SQLServerSettings.Default.AppveyorSqlServerPw);
-            initDb.Connect();
-            initDb.CreateAndDrop("CREATE DATABASE TestDB;");
-            initDb.Disconnect();
-        }
         
         [TestMethod()]
         public void ConnectTest()
@@ -71,7 +48,7 @@ namespace Common.Tests
                 {
                     if (objDB.Connect())
                     {
-                        SetUseDB();
+                        objDB.ChangeData("DROP TABLE IF EXISTS Test;");
                         Assert.AreEqual(true, objDB.CreateAndDrop("CREATE TABLE Test (id int NOT NULL PRIMARY KEY, col_1 nvarchar(10) NULL);"));
                     }
                 }
@@ -86,9 +63,8 @@ namespace Common.Tests
 
         }
 
-
         [TestMethod()]
-        public void BeginTransAndRollBackTest2()
+        public void BeginTransAndRollBackTest()
         {
             try
             {
@@ -96,7 +72,6 @@ namespace Common.Tests
                 {
                     if (objDB.Connect())
                     {
-                        SetUseDB();
                         Assert.AreEqual(true, objDB.BeginTrans());
                         Assert.AreEqual(true, objDB.RollBack());
                     }

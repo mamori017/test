@@ -2,45 +2,55 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Net;
+using System.Data;
 
 namespace Common.Tests
 {
     [TestClass()]
     public class SQLServerTests
     {
-        private SQLServer TestEnvJudge()
-        {
-            SQLServer objDB = null;
+        SQLServer objDB = null;
 
-            try
-            {
+        [AssemblyInitialize]
+        public static void AssemblyInitialize(TestContext testContext)
+        {
+            SQLServer objDBLocal;
 #if DEBUG
-                objDB = new SQLServer(SQLServerSettings.Default.SqlServerName,
-                                      "",
-                                      SQLServerSettings.Default.SqlServerUser,
-                                      SQLServerSettings.Default.SqlServerPw);
+            objDBLocal = new SQLServer(SQLServerSettings.Default.SqlServerName, "", SQLServerSettings.Default.SqlServerUser, SQLServerSettings.Default.SqlServerPw);
 #else
-                objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,
-                                      "",
-                                      SQLServerSettings.Default.AppveyorSqlServerUser,
-                                      SQLServerSettings.Default.AppveyorSqlServerPw);
+            objDBLocal = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,"",SQLServerSettings.Default.AppveyorSqlServerUser,SQLServerSettings.Default.AppveyorSqlServerPw);
 #endif
-                return objDB;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw;
-            }
+            objDBLocal.Connect();
+            objDBLocal.CreateAndDrop("DROP DATABASE IF EXISTS TestDB;");
+            objDBLocal.CreateAndDrop("CREATE DATABASE TestDB;");
+            objDBLocal.Disconnect();
+        }
+
+        [TestInitialize]
+        public void Initialize()
+        {
+#if DEBUG
+            objDB = new SQLServer(SQLServerSettings.Default.SqlServerName, "", SQLServerSettings.Default.SqlServerUser, SQLServerSettings.Default.SqlServerPw);
+#else
+            objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,"",SQLServerSettings.Default.AppveyorSqlServerUser,SQLServerSettings.Default.AppveyorSqlServerPw);
+#endif
+        }
+        private void SetUseDB()
+        {
+            objDB.ChangeData("USE TestDB");
+        }
+
+        private void SetEnv()
+        {
+            objDB.CreateAndDrop("DROP DATABASE IF EXISTS TestDB;");
+            objDB.CreateAndDrop("CREATE DATABASE TestDB;");
         }
 
         [TestMethod()]
         public void ConnectTest()
         {
-            SQLServer objDB = null;
             try
             {
-                objDB = TestEnvJudge();
                 if (objDB != null)
                 {
                     Assert.AreEqual(true, objDB.Connect());
@@ -49,125 +59,70 @@ namespace Common.Tests
             finally
             {
                 objDB.Disconnect();
-                objDB = null;
             }
         }
 
         [TestMethod()]
         public void DisconnectTest()
         {
-            SQLServer objDB = null;
-            try
-            {
-                objDB = TestEnvJudge();
-                if (objDB != null)
-                {
-                    if (objDB.Connect())
-                    {
-                        objDB.ChangeData("USE TestDB");
-                        Assert.AreEqual(true, objDB.Disconnect());
-                    }
-                }
-            }
-            finally
-            {
-                objDB = null;
-            }
-        }
-
-        [TestMethod()]
-        public void BeginTransTest()
-        {
-            SQLServer objDB = null;
-            try
-            {
-                objDB = TestEnvJudge();
-                if (objDB != null)
-                {
-                    if (objDB.Connect())
-                    {
-                        objDB.ChangeData("USE TestDB");
-                        Assert.AreEqual(true, objDB.BeginTrans());
-
-                        objDB.RollBack();
-                    }
-                }
-            }
-            finally
+            if (objDB != null)
             {
                 if (objDB.Connect())
                 {
-                    objDB.Disconnect();
+                    Assert.AreEqual(true, objDB.Disconnect());
                 }
-                objDB = null;
             }
         }
 
+
         [TestMethod()]
-        public void RollBackTest()
+        public void CreateAndDropTest()
         {
-            SQLServer objDB = null;
             try
             {
-                objDB = TestEnvJudge();
                 if (objDB != null)
                 {
                     if (objDB.Connect())
                     {
-                        objDB.ChangeData("USE TestDB");
-                        objDB.BeginTrans();
+                        SetUseDB();
+                        Assert.AreEqual(true, objDB.CreateAndDrop("CREATE TABLE Test (id int NOT NULL PRIMARY KEY, col_1 nvarchar(10) NULL);"));
+                    }
+                }
+            }
+            finally
+            {
+                if (objDB.Conn.State == ConnectionState.Open)
+                {
+                    objDB.Disconnect();
+                }
+            }
 
+        }
+
+
+        [TestMethod()]
+        public void BeginTransAndRollBackTest2()
+        {
+            try
+            {
+                if (objDB != null)
+                {
+                    if (objDB.Connect())
+                    {
+                        SetUseDB();
+                        Assert.AreEqual(true, objDB.BeginTrans());
                         Assert.AreEqual(true, objDB.RollBack());
                     }
                 }
             }
             finally
             {
-                if (objDB.Connect())
+                if (objDB.Conn.State == ConnectionState.Open)
                 {
                     objDB.Disconnect();
                 }
-                objDB = null;
             }
         }
 
-        [TestMethod()]
-        public void CreateAndDropTest()
-        {
-            SQLServer objDB = null;
-            
-            try
-            {
-                objDB = TestEnvJudge();
-
-                if (objDB != null)
-                {
-                    if (objDB.Connect())
-                    {
-                        SetTestEnv(objDB);
-
-                        bool ret = objDB.CreateAndDrop("CREATE TABLE Test (id int NOT NULL PRIMARY KEY, col_1 nvarchar(10) NULL);");
-
-                        Assert.AreEqual(true, ret);
-                    }
-                }
-            }
-            finally
-            {
-                if (objDB.Connect())
-                {
-                    objDB.Disconnect();
-                }
-                objDB = null;
-            }
-
-        }
-
-        private void SetTestEnv(SQLServer objDB)
-        {
-            objDB.CreateAndDrop("DROP DATABASE TestDB;");
-            objDB.CreateAndDrop("CREATE DATABASE TestDB;");
-            objDB.ChangeData("USE TestDB");
-        }
     }
 }

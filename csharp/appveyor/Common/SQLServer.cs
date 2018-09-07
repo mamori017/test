@@ -76,7 +76,7 @@ namespace Common
         {
             try
             {
-                if (Conn.State == ConnectionState.Open && Trans != null)
+                if (Conn.State == ConnectionState.Open && Trans.Connection != null)
                 {
                     Trans.Rollback();
                 }
@@ -96,7 +96,7 @@ namespace Common
         {
             try
             {
-                if (Conn.State == ConnectionState.Open && Trans != null)
+                if (Conn.State == ConnectionState.Open && Trans.Connection != null)
                 {
                     Trans.Commit();
                 }
@@ -116,6 +116,11 @@ namespace Common
         {
             try
             {
+                //if (Trans.Connection != null)
+                //{
+                //    Trans.Rollback();
+                //}
+
                 if (Conn.State == ConnectionState.Open)
                 {
                     Conn.Close();
@@ -319,7 +324,6 @@ namespace Common
             return ret;
         }
 
-
         private static class Query
         {
             public static string GetLockInfoQuery()
@@ -359,6 +363,5 @@ namespace Common
                 return sql;
             }
         }
-
     }
 }

@@ -37,7 +37,7 @@ namespace CommonTests.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("inspection")]
+        [global::System.Configuration.DefaultSettingValueAttribute("sa")]
         public string SqlServerUser {
             get {
                 return ((string)(this["SqlServerUser"]));
@@ -49,7 +49,7 @@ namespace CommonTests.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("inspection")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Password12!")]
         public string SqlServerPw {
             get {
                 return ((string)(this["SqlServerPw"]));

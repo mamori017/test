@@ -6,10 +6,10 @@
       <Value Profile="(Default)">(local)\SQLEXPRESS</Value>
     </Setting>
     <Setting Name="SqlServerUser" Type="System.String" Scope="User">
-      <Value Profile="(Default)">inspection</Value>
+      <Value Profile="(Default)">sa</Value>
     </Setting>
     <Setting Name="SqlServerPw" Type="System.String" Scope="User">
-      <Value Profile="(Default)">inspection</Value>
+      <Value Profile="(Default)">Password12!</Value>
     </Setting>
     <Setting Name="AppveyorSqlServerName" Type="System.String" Scope="User">
       <Value Profile="(Default)">(local)\SQL2014</Value>

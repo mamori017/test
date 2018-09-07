@@ -11,22 +11,9 @@ namespace Common.Tests
     {
         SQLServer objDB = null;
 
-        [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext testContext)
-        {
-            SQLServer objDBLocal;
-//            objDBLocal = new SQLServer(SQLServerSettings.Default.SqlServerName, "", SQLServerSettings.Default.SqlServerUser, SQLServerSettings.Default.SqlServerPw);
-            objDBLocal = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,"",SQLServerSettings.Default.AppveyorSqlServerUser,SQLServerSettings.Default.AppveyorSqlServerPw);
-            objDBLocal.Connect();
-            objDBLocal.CreateAndDrop("DROP DATABASE IF EXISTS TestDB;");
-            objDBLocal.CreateAndDrop("CREATE DATABASE TestDB;");
-            objDBLocal.Disconnect();
-        }
-
         [TestInitialize]
         public void Initialize()
         {
-//            objDB = new SQLServer(SQLServerSettings.Default.SqlServerName, "", SQLServerSettings.Default.SqlServerUser, SQLServerSettings.Default.SqlServerPw);
             objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,"",SQLServerSettings.Default.AppveyorSqlServerUser,SQLServerSettings.Default.AppveyorSqlServerPw);
         }
         private void SetUseDB()
@@ -79,6 +66,7 @@ namespace Common.Tests
                     if (objDB.Connect())
                     {
                         SetUseDB();
+                        SetEnv();
                         Assert.AreEqual(true, objDB.CreateAndDrop("CREATE TABLE Test (id int NOT NULL PRIMARY KEY, col_1 nvarchar(10) NULL);"));
                     }
                 }

@@ -9,13 +9,8 @@ namespace Common.Tests
     [TestClass()]
     public class SQLServerTests
     {
-        SQLServer objDB = null;
+        SQLServer objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName, "", SQLServerSettings.Default.AppveyorSqlServerUser, SQLServerSettings.Default.AppveyorSqlServerPw);
 
-        [TestInitialize]
-        public void Initialize()
-        {
-            objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,"",SQLServerSettings.Default.AppveyorSqlServerUser,SQLServerSettings.Default.AppveyorSqlServerPw);
-        }
         private void SetUseDB()
         {
             objDB.ChangeData("USE TestDB");
@@ -30,8 +25,15 @@ namespace Common.Tests
             objDB.CreateAndDrop("DROP DATABASE TestDB;");
         }
 
-
-
+        [AssemblyInitialize]
+        public static void init(TestContext testContext)
+        {
+            SQLServer initDb = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName, "", SQLServerSettings.Default.AppveyorSqlServerUser, SQLServerSettings.Default.AppveyorSqlServerPw);
+            initDb.Connect();
+            initDb.CreateAndDrop("CREATE DATABASE TestDB;");
+            initDb.Disconnect();
+        }
+        
         [TestMethod()]
         public void ConnectTest()
         {
@@ -60,7 +62,6 @@ namespace Common.Tests
             }
         }
 
-
         [TestMethod()]
         public void CreateAndDropTest()
         {
@@ -70,7 +71,6 @@ namespace Common.Tests
                 {
                     if (objDB.Connect())
                     {
-                        SetEnv();
                         SetUseDB();
                         Assert.AreEqual(true, objDB.CreateAndDrop("CREATE TABLE Test (id int NOT NULL PRIMARY KEY, col_1 nvarchar(10) NULL);"));
                     }
@@ -78,8 +78,6 @@ namespace Common.Tests
             }
             finally
             {
-                DropEnv();
-
                 if (objDB.Conn.State == ConnectionState.Open)
                 {
                     objDB.Disconnect();
@@ -98,18 +96,14 @@ namespace Common.Tests
                 {
                     if (objDB.Connect())
                     {
-                        SetEnv();
                         SetUseDB();
                         Assert.AreEqual(true, objDB.BeginTrans());
                         Assert.AreEqual(true, objDB.RollBack());
-                        DropEnv();
                     }
                 }
             }
             finally
             {
-                DropEnv();
-
                 if (objDB.Conn.State == ConnectionState.Open)
                 {
                     objDB.Disconnect();

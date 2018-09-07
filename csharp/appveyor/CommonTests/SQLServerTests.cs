@@ -23,8 +23,8 @@ namespace Common.Tests
 
         private void SetEnv()
         {
-            objDB.CreateAndDrop("DROP DATABASE TestDB;");
             objDB.CreateAndDrop("CREATE DATABASE TestDB;");
+            objDB.CreateAndDrop("DROP DATABASE TestDB;");
         }
 
         [TestMethod()]

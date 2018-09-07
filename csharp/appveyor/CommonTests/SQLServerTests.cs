@@ -23,7 +23,7 @@ namespace Common.Tests
 
         private void SetEnv()
         {
-            objDB.CreateAndDrop("DROP DATABASE IF EXISTS TestDB;");
+            objDB.CreateAndDrop("DROP DATABASE TestDB;");
             objDB.CreateAndDrop("CREATE DATABASE TestDB;");
         }
 
@@ -91,6 +91,7 @@ namespace Common.Tests
                 {
                     if (objDB.Connect())
                     {
+                        SetEnv();
                         SetUseDB();
                         Assert.AreEqual(true, objDB.BeginTrans());
                         Assert.AreEqual(true, objDB.RollBack());

@@ -5,7 +5,7 @@ services:
 build:
   project: csharp/appveyor/Common.sln
   verbosity: minimal
-image: Visual Studio 2015
+image: Visual Studio 2017
 configuration: Release
 before_build:
   nuget restore csharp/appveyor/Common.sln

@@ -24,8 +24,13 @@ namespace Common.Tests
         private void SetEnv()
         {
             objDB.CreateAndDrop("CREATE DATABASE TestDB;");
+        }
+        private void DropEnv()
+        {
             objDB.CreateAndDrop("DROP DATABASE TestDB;");
         }
+
+
 
         [TestMethod()]
         public void ConnectTest()
@@ -73,6 +78,8 @@ namespace Common.Tests
             }
             finally
             {
+                DropEnv();
+
                 if (objDB.Conn.State == ConnectionState.Open)
                 {
                     objDB.Disconnect();
@@ -95,11 +102,14 @@ namespace Common.Tests
                         SetUseDB();
                         Assert.AreEqual(true, objDB.BeginTrans());
                         Assert.AreEqual(true, objDB.RollBack());
+                        DropEnv();
                     }
                 }
             }
             finally
             {
+                DropEnv();
+
                 if (objDB.Conn.State == ConnectionState.Open)
                 {
                     objDB.Disconnect();

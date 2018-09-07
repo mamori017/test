@@ -48,7 +48,7 @@ namespace Common.Tests
                 {
                     if (objDB.Connect())
                     {
-                        objDB.ChangeData("DROP TABLE IF EXISTS Test;");
+                        //objDB.ChangeData("DROP TABLE IF EXISTS Test;");
                         Assert.AreEqual(true, objDB.CreateAndDrop("CREATE TABLE Test (id int NOT NULL PRIMARY KEY, col_1 nvarchar(10) NULL);"));
                     }
                 }

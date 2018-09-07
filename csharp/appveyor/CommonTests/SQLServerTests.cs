@@ -15,11 +15,8 @@ namespace Common.Tests
         public static void AssemblyInitialize(TestContext testContext)
         {
             SQLServer objDBLocal;
-#if DEBUG
-            objDBLocal = new SQLServer(SQLServerSettings.Default.SqlServerName, "", SQLServerSettings.Default.SqlServerUser, SQLServerSettings.Default.SqlServerPw);
-#else
+//            objDBLocal = new SQLServer(SQLServerSettings.Default.SqlServerName, "", SQLServerSettings.Default.SqlServerUser, SQLServerSettings.Default.SqlServerPw);
             objDBLocal = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,"",SQLServerSettings.Default.AppveyorSqlServerUser,SQLServerSettings.Default.AppveyorSqlServerPw);
-#endif
             objDBLocal.Connect();
             objDBLocal.CreateAndDrop("DROP DATABASE IF EXISTS TestDB;");
             objDBLocal.CreateAndDrop("CREATE DATABASE TestDB;");
@@ -29,11 +26,8 @@ namespace Common.Tests
         [TestInitialize]
         public void Initialize()
         {
-#if DEBUG
-            objDB = new SQLServer(SQLServerSettings.Default.SqlServerName, "", SQLServerSettings.Default.SqlServerUser, SQLServerSettings.Default.SqlServerPw);
-#else
+//            objDB = new SQLServer(SQLServerSettings.Default.SqlServerName, "", SQLServerSettings.Default.SqlServerUser, SQLServerSettings.Default.SqlServerPw);
             objDB = new SQLServer(SQLServerSettings.Default.AppveyorSqlServerName,"",SQLServerSettings.Default.AppveyorSqlServerUser,SQLServerSettings.Default.AppveyorSqlServerPw);
-#endif
         }
         private void SetUseDB()
         {

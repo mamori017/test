@@ -1,0 +1,10 @@
+nslookup google.com
+nslookup yahoo.com
+nslookup microsoft.com
+nslookup apple.com
+nslookup github.com
+nslookup gitlab.com
+nslookup bitbucket.org
+nslookup slack.com
+nslookup trello.com
+nslookup heroku.com

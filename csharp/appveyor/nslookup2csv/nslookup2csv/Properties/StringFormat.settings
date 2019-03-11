@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="nslookup2csv.Properties" GeneratedClassName="StringFormat">
+  <Profiles />
+  <Settings>
+    <Setting Name="Title" Type="System.String" Scope="User">
+      <Value Profile="(Default)">==============================
+         nslookup2csv
+ Copyright (C) 2018 mamori017
+==============================</Value>
+    </Setting>
+    <Setting Name="ParameterError" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Parameter error</Value>
+    </Setting>
+    <Setting Name="Target" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Target : {0}</Value>
+    </Setting>
+    <Setting Name="Finish" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Finish</Value>
+    </Setting>
+    <Setting Name="Output" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Output : {0}</Value>
+    </Setting>
+    <Setting Name="FileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\{0}.csv"</Value>
+    </Setting>
+    <Setting Name="OutputHeader" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Target\tServer\tAddress\tName\tAddress</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

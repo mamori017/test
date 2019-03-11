@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 
 codealike.json
+csharp/appveyor/Common

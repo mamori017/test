@@ -43,16 +43,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\Common\Common\IO.cs">
-      <Link>Common\IO.cs</Link>
+      <Link>IO.cs</Link>
     </Compile>
     <Compile Include="..\..\Common\Common\Log.cs">
-      <Link>Common\Log.cs</Link>
+      <Link>Log.cs</Link>
     </Compile>
     <Compile Include=".\Common\Common\IO.cs" Condition=" '$(Configuration)' == 'Release' ">
-      <Link>Common\IO.cs</Link>
+      <Link>IO.cs</Link>
     </Compile>
     <Compile Include=".\Common\Common\Log.cs" Condition=" '$(Configuration)' == 'Release' ">
-      <Link>Common\Log.cs</Link>
+      <Link>Log.cs</Link>
     </Compile>
     <Compile Include="Message.cs" />
     <Compile Include="Program.cs" />

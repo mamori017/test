@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CommonTests.Properties" GeneratedClassName="SQLServerSettings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SqlServerName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">(local)\SQLEXPRESS</Value>
+    </Setting>
+    <Setting Name="SqlServerUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sa</Value>
+    </Setting>
+    <Setting Name="SqlServerPw" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Password12!</Value>
+    </Setting>
+    <Setting Name="AppveyorSqlServerName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">(local)\SQL2014</Value>
+    </Setting>
+    <Setting Name="AppveyorSqlServerUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sa</Value>
+    </Setting>
+    <Setting Name="AppveyorSqlServerPw" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Password12!</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
